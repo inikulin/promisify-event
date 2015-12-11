@@ -13,17 +13,17 @@ npm install promisify-event
 const promisifyEvent = require('promisify-event');
 
 // Promisify server's `listening` event:
-promisify(server, `listening`).then(() => {
+promisifyEvent(server, `listening`).then(() => {
   // ...
 });
 
 // Promisify `error` event. `error` event always rejects the promise:
-promisify(server, 'error').catch(() => {
+promisifyEvent(server, 'error').catch(() => {
   // ...
 });
 
 // Cancel event subscription and promise (it will be never fulfilled):
-var listeningPromise = promisify(server, `listening`);
+var listeningPromise = promisifyEvent(server, `listening`);
 
 listeningPromise.cancel();
 
