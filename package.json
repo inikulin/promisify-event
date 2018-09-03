@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Promisify EventEmitter's event.",
   "main": "index.js",
-  "dependencies": {
-    "pinkie-promise": "^2.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "^2.3.4"
   },

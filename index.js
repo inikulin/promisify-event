@@ -1,30 +1,14 @@
-var Promise = require('pinkie-promise');
+module.exports = (emitter, event) => {
+  let listener;
 
-module.exports = function (emitter, event) {
-    var listener = null;
-
-    var promise = new Promise(function (resolve, reject) {
-        listener = function () {
-            var args = null;
-
-            if (arguments.length === 1)
-                args = arguments[0];
-            else {
-                args = [];
-
-                for (var i = 0; i < arguments.length; i++)
-                    args.push(arguments[i]);
-            }
-
-            event === 'error' ? reject(args) : resolve(args);
-        };
-
-        emitter.once(event, listener);
-    });
-
-    promise.cancel = function () {
-        emitter.removeListener(event, listener);
-    };
-
-    return promise;
+  const promise = new Promise((resolve, reject) => {
+    listener = (...args) => {
+      let promArgs = args;
+      if(args.length <= 1) [promArgs] = args;
+      event === 'error' ? reject(promArgs) : resolve(promArgs);
+    }
+    emitter.once(event, listener);
+  });
+  promise.cancel = () => emitter.removeListener(event, listener);
+  return promise;
 };

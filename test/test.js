@@ -1,6 +1,5 @@
 var assert         = require('assert');
 var EventEmitter   = require('events').EventEmitter;
-var Promise        = require('pinkie-promise');
 var promisifyEvent = require('../');
 
 it('Should resolve promise on event', function () {
